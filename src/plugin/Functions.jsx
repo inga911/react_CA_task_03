@@ -40,8 +40,28 @@ const CustomFunctions = () => {
       }
     });
   }
+  const convertToLithuanianDate = (timestamp) => {
+    const date = new Date(timestamp);
+    if (isNaN(date)) {
+      throw new RangeError("Invalid time value");
+    }
 
-  return { handleNavigate, logout, getRandomPostsHome, nav, getPosts };
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    return new Intl.DateTimeFormat("lt-LT", options).format(date);
+  };
+  return {
+    handleNavigate,
+    logout,
+    getRandomPostsHome,
+    nav,
+    getPosts,
+    convertToLithuanianDate,
+  };
 };
 
 export default CustomFunctions;

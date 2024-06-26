@@ -22,7 +22,12 @@ function AllPostsPage() {
       ) : (
         Array.isArray(data) &&
         data.map((x) => (
-          <SinglePostComponent getPosts={getPosts} data={x} key={x.id} />
+          <SinglePostComponent
+            getPosts={getPosts}
+            data={x}
+            key={x.id}
+            context="allPosts"
+          />
         ))
       )}
     </div>

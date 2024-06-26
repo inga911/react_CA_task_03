@@ -9,7 +9,9 @@ function AllUserPostsComponent({ data }) {
       {data.length === 0 ? (
         <h1>Loading...</h1>
       ) : (
-        data.map((item) => <SinglePostComponent data={item} key={item.id} />)
+        data.map((item) => (
+          <SinglePostComponent data={item} key={item.id} context="singlePost" />
+        ))
       )}
     </div>
   );

@@ -24,7 +24,11 @@ function SinglePostPage() {
 
   return (
     <div>
-      {data ? <SinglePostComponent data={data} /> : <h1>Loading...</h1>}
+      {data ? (
+        <SinglePostComponent data={data} context="singlePost" />
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </div>
   );
 }
