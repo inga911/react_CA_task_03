@@ -1,14 +1,30 @@
 import CustomFunctions from "../plugin/Functions";
+import http from "../plugin/http";
 import mainStore from "../store/mainStore";
 
 function SinglePostComponent({ data }) {
-  const { handleNavigate } = CustomFunctions();
+  const { handleNavigate, getPosts } = CustomFunctions();
   const { logged } = mainStore((state) => ({
     logged: state.logged,
   }));
 
   if (!data) {
     return <h1>Loading...</h1>;
+  }
+
+  async function removePost() {
+    const remPost = {
+      id: data.id,
+      secretKey: localStorage.getItem("secret"),
+    };
+    console.log(remPost);
+    const res = await http.post("/deletepost", remPost);
+
+    if (res.success) {
+      getPosts();
+    } else {
+      console.log(res.message);
+    }
   }
 
   return (
@@ -38,6 +54,7 @@ function SinglePostComponent({ data }) {
           Update
         </button>
       )}
+      {logged === data.username && <button onClick={removePost}>Delete</button>}
     </div>
   );
 }

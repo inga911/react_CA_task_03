@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import http from "../plugin/http";
 import SinglePostComponent from "../components/SinglePostComponent.jsx";
 import mainStore from "../store/mainStore.jsx";
+import CustomFunctions from "../plugin/Functions.jsx";
 
 function AllPostsPage() {
   const { data, setData } = mainStore((state) => ({
@@ -9,15 +9,7 @@ function AllPostsPage() {
     setData: state.setData,
   }));
 
-  function getPosts() {
-    http.get("/getAllPosts").then((res) => {
-      if (Array.isArray(res.data)) {
-        setData(res.data.reverse());
-      } else {
-        setData([]);
-      }
-    });
-  }
+  const { getPosts } = CustomFunctions();
 
   useEffect(() => {
     getPosts();

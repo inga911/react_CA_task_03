@@ -31,7 +31,17 @@ const CustomFunctions = () => {
     });
   }
 
-  return { handleNavigate, logout, getRandomPostsHome, nav };
+  function getPosts() {
+    http.get("/getAllPosts").then((res) => {
+      if (Array.isArray(res.data)) {
+        setData(res.data.reverse());
+      } else {
+        setData([]);
+      }
+    });
+  }
+
+  return { handleNavigate, logout, getRandomPostsHome, nav, getPosts };
 };
 
 export default CustomFunctions;

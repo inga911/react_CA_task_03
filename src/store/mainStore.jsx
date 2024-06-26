@@ -8,8 +8,8 @@ const mainStore = create((set) => {
     data: null,
     setData: (newData) => set(() => ({ data: newData })),
 
-    error: "",
-    setError: (newError) => set(() => ({ error: newError })),
+    error: null,
+    setError: (error) => set({ error }),
 
     logged: user && secret ? user : null,
     setLogged: (newUser) => set(() => ({ logged: newUser })),

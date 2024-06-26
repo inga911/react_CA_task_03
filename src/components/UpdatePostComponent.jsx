@@ -4,8 +4,9 @@ import http from "../plugin/http";
 import CustomFunctions from "../plugin/Functions";
 
 function UpdatePostComponent({ data }) {
-  const { setData, setError } = mainStore((state) => ({
+  const { setData, error, setError } = mainStore((state) => ({
     setData: state.setData,
+    error: state.error,
     setError: state.setError,
   }));
 
@@ -55,6 +56,7 @@ function UpdatePostComponent({ data }) {
         <span>Image URL</span>
         <input type="text" ref={imageRef} />
       </div>
+      <div className="error-msg">{error}</div>
       <button className="log-btn" onClick={handleUpdatePost}>
         Update Post
       </button>

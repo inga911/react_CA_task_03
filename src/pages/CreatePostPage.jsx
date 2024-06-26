@@ -6,7 +6,7 @@ import http from "../plugin/http";
 function CreatePostPage() {
   const { error, setError } = mainStore((state) => ({
     error: state.error,
-    setError: state.error,
+    setError: state.setError,
   }));
 
   const { handleNavigate } = CustomFunctions();
@@ -27,6 +27,8 @@ function CreatePostPage() {
 
     if (res.success) {
       handleNavigate("/getAllPosts");
+    } else {
+      setError(res.message);
     }
   }
 
