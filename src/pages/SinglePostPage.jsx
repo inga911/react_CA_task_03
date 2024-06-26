@@ -14,11 +14,19 @@ function SinglePostPage() {
   useEffect(() => {
     setData(null);
     http.get(`/getSinglePost/${username}/${id}`).then((res) => {
-      setData(res.data);
+      if (res.data) {
+        setData(res.data);
+      } else {
+        setData(null);
+      }
     });
   }, [username, id, setData]);
 
-  return <div>{data && <SinglePostComponent data={data} />}</div>;
+  return (
+    <div>
+      {data ? <SinglePostComponent data={data} /> : <h1>Loading...</h1>}
+    </div>
+  );
 }
 
 export default SinglePostPage;

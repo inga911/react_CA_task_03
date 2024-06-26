@@ -11,7 +11,11 @@ function AllPostsPage() {
 
   function getPosts() {
     http.get("/getAllPosts").then((res) => {
-      setData(res.data.reverse());
+      if (Array.isArray(res.data)) {
+        setData(res.data.reverse());
+      } else {
+        setData([]);
+      }
     });
   }
 
@@ -21,9 +25,10 @@ function AllPostsPage() {
 
   return (
     <div className="all-posts d-flex flex-wrap gap-5 mt-5 justify-content-center">
-      {data.length === 0 ? (
+      {Array.isArray(data) && data.length === 0 ? (
         <h1>LOADING...</h1>
       ) : (
+        Array.isArray(data) &&
         data.map((x) => (
           <SinglePostComponent getPosts={getPosts} data={x} key={x.id} />
         ))
