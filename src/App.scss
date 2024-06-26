@@ -84,48 +84,81 @@
     min-height: 350px;
     padding: 10px;
 
-    .box-title {
-        text-transform: uppercase;
-        font-size: 35px;
-        letter-spacing: 1.5px;
+
+
+
+}
+
+.box-title {
+    text-transform: uppercase;
+    font-size: 35px;
+    letter-spacing: 1.5px;
+}
+
+.input-box {
+    span {
+        color: grey;
+        font-size: 15px;
     }
 
-
-    .input-box {
-        span {
-            color: grey;
-            font-size: 15px;
-        }
-
-        input {
-            outline-color: antiquewhite;
-            border: none;
-            border-bottom: 1px solid rgb(205, 203, 203);
-            padding: 5px;
-        }
+    input {
+        outline-color: antiquewhite;
+        border: none;
+        border-bottom: 1px solid rgb(205, 203, 203);
+        padding: 5px;
     }
+}
 
-    .log-btn {
-        background-color: transparent;
-        border: 1px solid rgb(205, 203, 203);
-        padding: 5px 15px;
-        border-radius: 3px;
-        transition: all 0.2s;
 
-        &:hover {
-            border-color: black;
-        }
+
+.log-btn {
+    background-color: transparent;
+    border: 1px solid rgb(205, 203, 203);
+    padding: 5px 15px;
+    border-radius: 3px;
+    transition: all 0.2s;
+
+    &:hover {
+        border-color: black;
     }
 }
 
 // HOME PAGE
 .hero {
     height: 300px;
-    width: 100vw;
     background-color: antiquewhite;
     text-align: center;
     position: absolute;
     top: 60px;
     left: 0;
     right: 0;
+}
+
+.home-random-posts {
+    margin-top: 360px;
+}
+
+.home-single-post-card {
+    width: 200px;
+    height: 250px;
+    border: 1px solid grey;
+    padding: 15px;
+    word-wrap: break-word;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+}
+
+//CREATE POST 
+.create-post-box {
+
+    .input-box {
+        width: 80%;
+
+    }
+
 }

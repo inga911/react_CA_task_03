@@ -1,24 +1,26 @@
 import CustomFunctions from "../plugin/Functions";
-import mainStore from "../store/mainStore";
 
-function SinglePostComponent({ data }) {
+function HomeSinglePostComponent({ data }) {
   const { handleNavigate } = CustomFunctions();
-  const { logged } = mainStore((state) => ({
-    logged: state.logged,
-  }));
 
   if (!data) {
     return <h1>Loading...</h1>;
   }
 
+  const handleImageError = (event) => {
+    event.target.src =
+      "https://static.vecteezy.com/system/resources/thumbnails/022/014/063/small_2x/missing-picture-page-for-website-design-or-mobile-app-design-no-image-available-icon-vector.jpg";
+  };
+
   return (
-    <div className="single-post-card">
+    <div className="home-single-post-card">
       <img
         src={data.image}
         alt={data.id}
         onClick={() =>
           handleNavigate(`/getSinglePost/${data.username}/${data.id}`)
         }
+        onError={handleImageError}
       />
       <div className="title">TITLE: {data.title}</div>
       <div
@@ -27,19 +29,8 @@ function SinglePostComponent({ data }) {
       >
         <b>Username:</b> {data.username}
       </div>
-      {logged === data.username && (
-        <button
-          onClick={() =>
-            handleNavigate(`/updatePost/${data.username}/${data.id}`, {
-              state: { data },
-            })
-          }
-        >
-          Update
-        </button>
-      )}
     </div>
   );
 }
 
-export default SinglePostComponent;
+export default HomeSinglePostComponent;

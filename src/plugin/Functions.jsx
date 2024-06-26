@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import mainStore from "../store/mainStore";
+import http from "./http";
 
 const CustomFunctions = () => {
   const nav = useNavigate();
-  const { setLogged } = mainStore((state) => ({
+  const { setLogged, data, setData } = mainStore((state) => ({
     setLogged: state.setLogged,
+    data: state.data,
+    setData: state.setData,
   }));
 
   function handleNavigate(path) {
@@ -18,7 +21,17 @@ const CustomFunctions = () => {
     nav("/");
   }
 
-  return { handleNavigate, logout };
+  function getRandomPostsHome() {
+    http.get("/getAllPosts").then((res) => {
+      if (Array.isArray(res.data)) {
+        setData(res.data);
+      } else {
+        setData([]);
+      }
+    });
+  }
+
+  return { handleNavigate, logout, getRandomPostsHome, nav };
 };
 
 export default CustomFunctions;

@@ -24,6 +24,9 @@ function Toolbar() {
               <a href="/" onClick={logout}>
                 Loggout
               </a>
+              <button onClick={() => handleNavigate("/createPost")}>
+                Create post
+              </button>
             </>
           )}
         </div>

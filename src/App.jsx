@@ -30,7 +30,7 @@ function App() {
         />
 
         <Route element={<CreatePostPage />} path="/createPost" />
-        <Route element={<UpdatePostPage />} path="/updatePost" />
+        <Route element={<UpdatePostPage />} path="/updatePost/:username/:id" />
         <Route element={<UpdatePostPage />} path="/deletePost" />
       </Routes>
       <Footer />
