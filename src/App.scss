@@ -46,6 +46,35 @@
     word-break: break-all;
     overflow: hidden;
     border-radius: 5px;
+    position: relative;
+
+    // FAVORITES
+    .fav-star {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 5;
+        visibility: hidden;
+        font-size: 30px;
+        cursor: pointer;
+
+        &::before {
+            content: "\2606";
+            position: absolute;
+            visibility: visible;
+            font-size: 45px;
+            background: white;
+            line-height: 1;
+            right: 0;
+            border-radius: 5px;
+        }
+
+        &.checked::before {
+            content: "\2605";
+            position: absolute;
+            color: gold;
+        }
+    }
 
     .post-img-link {
         width: 100%;
@@ -104,10 +133,6 @@
     min-width: 600px;
     min-height: 350px;
     padding: 10px;
-
-
-
-
 }
 
 .box-title {
@@ -179,9 +204,7 @@
 
     .input-box {
         width: 80%;
-
     }
-
 }
 
 // ERROR
@@ -215,4 +238,32 @@
             text-decoration: underline;
         }
     }
+}
+
+
+// PAGINATION
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+
+    .pagination-button {
+        border: 1px solid rgb(213, 213, 213);
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        align-content: center;
+        transition: all 0.2s;
+
+        &:hover {
+            cursor: pointer;
+            border-color: black;
+        }
+    }
+}
+
+.active {
+    background-color: black;
+    color: white;
 }

@@ -23,6 +23,10 @@ function App() {
         <Route element={<RegisterPage />} path="/createAccount" />
         <Route element={<FavoritesPage />} path="/favoritesPosts" />
         <Route element={<AllPostsPage />} path="/getAllPosts" />
+        <Route
+          element={<AllPostsPage />}
+          path="/getAllPosts/page/:pageNumber"
+        />
         <Route element={<AllUserPostsPage />} path="/getUserPosts/:username" />
         <Route
           element={<SinglePostPage />}

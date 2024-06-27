@@ -13,6 +13,15 @@ const mainStore = create((set) => {
 
     logged: user && secret ? user : null,
     setLogged: (newUser) => set(() => ({ logged: newUser })),
+
+    pages: 0,
+    setPages: (pages) => set(() => ({ pages })),
+
+    currentPage: 1,
+    setCurrentPage: (page) => set(() => ({ currentPage: page })),
+
+    favCount: JSON.parse(localStorage.getItem("favorites") || "[]").length,
+    setFavCount: (count) => set(() => ({ favCount: count })),
   };
 });
 

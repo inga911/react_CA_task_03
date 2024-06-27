@@ -1,34 +1,42 @@
+import { useEffect, useState } from "react";
 import CustomFunctions from "../plugin/Functions";
 import http from "../plugin/http";
 import mainStore from "../store/mainStore";
 
 function SinglePostComponent({ data, context }) {
-  const { handleNavigate, getPosts, convertToLithuanianDate } =
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const { handleNavigate, getPosts, convertToLithuanianDate, addFavorite } =
     CustomFunctions();
 
   const { logged } = mainStore((state) => ({
     logged: state.logged,
   }));
 
-  let formattedDate;
-  try {
-    formattedDate = convertToLithuanianDate(data.timestamp);
-  } catch (error) {
-    formattedDate = "Invalid date";
-  }
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const findItem = favorites.find((x) => x.id === data.id);
+    if (findItem) {
+      setIsFavorite(true);
+    }
+  }, [data.id]);
+
+  const handleFavoriteClick = () => {
+    addFavorite(data);
+    setIsFavorite((prev) => !prev);
+  };
+
+  const formattedDate = convertToLithuanianDate(data.timestamp);
 
   async function removePost() {
     const remPost = {
       id: data.id,
       secretKey: localStorage.getItem("secret"),
     };
-    console.log(remPost);
     const res = await http.post("/deletepost", remPost);
 
     if (res.success) {
       getPosts();
-    } else {
-      console.log(res.message);
     }
   }
 
@@ -44,6 +52,10 @@ function SinglePostComponent({ data, context }) {
           : "single-post-style d-flex gap-5"
       }`}
     >
+      <div
+        className={`fav-star ${isFavorite ? "checked" : ""}`}
+        onClick={handleFavoriteClick}
+      ></div>
       {context === "allPosts" ? (
         <img
           className="post-img-link"
