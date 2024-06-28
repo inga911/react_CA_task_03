@@ -4,10 +4,11 @@ import mainStore from "../store/mainStore";
 import CustomFunctions from "../plugin/Functions";
 
 function LoginPage() {
-  const { error, setError, setLogged } = mainStore((state) => ({
+  const { error, setError, setLogged, setFavCount } = mainStore((state) => ({
     error: state.error,
     setError: state.setError,
     setLogged: state.setLogged,
+    setFavCount: state.setFavCount,
   }));
   const { handleNavigate } = CustomFunctions();
   const nameRef = useRef();
@@ -24,6 +25,11 @@ function LoginPage() {
       localStorage.setItem("secret", res.secretKey);
       localStorage.setItem("user", user.name);
       setLogged(user.name);
+
+      const userKey = `favorites_${user.name}`;
+      const favorites = JSON.parse(localStorage.getItem(userKey)) || [];
+      setFavCount(favorites.length);
+
       handleNavigate("/");
     } else {
       setError(res.message);
@@ -39,7 +45,7 @@ function LoginPage() {
       </div>
       <div className="input-box  d-flex flex-column">
         <span>Password</span>
-        <input type="text" ref={passwordRef} />
+        <input type="password" ref={passwordRef} />
       </div>
       <div className="error-msg">{error}</div>
       <button className="log-btn" onClick={login}>

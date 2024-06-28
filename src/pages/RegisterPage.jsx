@@ -1,12 +1,16 @@
 import { useRef } from "react";
 import http from "../plugin/http";
 import mainStore from "../store/mainStore";
+import CustomFunctions from "../plugin/Functions";
 
 function RegisterPage() {
   const { error, setError } = mainStore((state) => ({
     error: state.error,
     setError: state.setError,
   }));
+
+  const { nav } = CustomFunctions();
+
   const nameRef = useRef();
   const passwordOneRef = useRef();
   const passwordTwoRef = useRef();
@@ -19,9 +23,12 @@ function RegisterPage() {
     };
 
     const res = await http.post("/createAccount", user);
-    console.log(res);
+
     if (!res.success) {
       setError(res.message);
+    } else {
+      nav("/login");
+      setError("");
     }
   }
 
@@ -34,11 +41,11 @@ function RegisterPage() {
       </div>
       <div className="input-box  d-flex flex-column">
         <span>Password 1</span>
-        <input type="text" ref={passwordOneRef} />
+        <input type="password" ref={passwordOneRef} />
       </div>
       <div className="input-box  d-flex flex-column">
         <span>Password 2</span>
-        <input type="text" ref={passwordTwoRef} />
+        <input type="password" ref={passwordTwoRef} />
       </div>
       <div className="error-msg">{error}</div>
       <button className="log-btn" onClick={createAccount}>

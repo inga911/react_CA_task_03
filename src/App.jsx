@@ -11,6 +11,7 @@ import AllUserPostsPage from "./pages/AllUserPostsPage";
 import SinglePostPage from "./pages/SinglePostPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import UpdatePostPage from "./pages/UpdatePostPage";
+import MyPostsPage from "./pages/MyPostsPage";
 import Footer from "./components/Footer";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           path="/getSinglePost/:username/:id"
         />
 
+        <Route element={<MyPostsPage />} path="/getUserPosts/:username" />
         <Route element={<CreatePostPage />} path="/createPost" />
         <Route element={<UpdatePostPage />} path="/updatePost/:username/:id" />
         <Route element={<UpdatePostPage />} path="/deletePost" />

@@ -4,9 +4,10 @@ import CustomFunctions from "../plugin/Functions";
 import http from "../plugin/http";
 
 function CreatePostPage() {
-  const { error, setError } = mainStore((state) => ({
+  const { error, setError, logged } = mainStore((state) => ({
     error: state.error,
     setError: state.setError,
+    logged: state.logged,
   }));
 
   const { handleNavigate } = CustomFunctions();
@@ -26,7 +27,7 @@ function CreatePostPage() {
     const res = await http.post("/createPost", newPost);
 
     if (res.success) {
-      handleNavigate("/getAllPosts");
+      handleNavigate(`/getUserPosts/${logged}`);
     } else {
       setError(res.message);
     }

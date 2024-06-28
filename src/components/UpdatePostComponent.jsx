@@ -4,10 +4,11 @@ import http from "../plugin/http";
 import CustomFunctions from "../plugin/Functions";
 
 function UpdatePostComponent({ data }) {
-  const { setData, error, setError } = mainStore((state) => ({
+  const { setData, error, setError, logged } = mainStore((state) => ({
     setData: state.setData,
     error: state.error,
     setError: state.setError,
+    logged: state.logged,
   }));
 
   const { handleNavigate } = CustomFunctions();
@@ -35,7 +36,7 @@ function UpdatePostComponent({ data }) {
     const res = await http.post("/updatePost", updatedPost);
 
     if (res.success) {
-      handleNavigate("/getAllPosts");
+      handleNavigate(`/getUserPosts/${logged}`);
     } else {
       setError(res.message);
     }

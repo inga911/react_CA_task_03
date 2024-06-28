@@ -2,16 +2,13 @@ import CustomFunctions from "../plugin/Functions";
 import mainStore from "../store/mainStore";
 
 function Toolbar() {
-  const { logged, favCount, currentPage, setCurrentPage } = mainStore(
-    (state) => ({
-      logged: state.logged,
-      favCount: state.favCount,
-      currentPage: state.currentPage,
-      setCurrentPage: state.setCurrentPage,
-    })
-  );
+  const { logged, favCount, setCurrentPage } = mainStore((state) => ({
+    logged: state.logged,
+    favCount: state.favCount,
+    setCurrentPage: state.setCurrentPage,
+  }));
 
-  const { handleNavigate, logout, goToPage } = CustomFunctions();
+  const { handleNavigate, goToPage, logout } = CustomFunctions();
 
   const handleAllPostsClick = () => {
     setCurrentPage(1);
@@ -23,18 +20,22 @@ function Toolbar() {
       <button onClick={() => handleNavigate("/")}>HOME</button>
       <div className="d-flex">
         <button onClick={handleAllPostsClick}>All Posts</button>
-        <button onClick={() => handleNavigate("/favoritesPosts")}>
-          Favorites ({favCount})
-        </button>
+
         <div>
           {logged && (
             <>
+              <button onClick={() => handleNavigate("/favoritesPosts")}>
+                Favorites ({favCount})
+              </button>
               Logged in as {logged}
               <a href="/" onClick={logout}>
                 Logout
               </a>
               <button onClick={() => handleNavigate("/createPost")}>
                 Create post
+              </button>
+              <button onClick={() => handleNavigate(`/getUserPosts/${logged}`)}>
+                My posts
               </button>
             </>
           )}

@@ -1,45 +1,87 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SinglePostComponent from "../components/SinglePostComponent";
 import mainStore from "../store/mainStore";
 import CustomFunctions from "../plugin/Functions";
 import Pagination from "../components/Pagination";
+import FilterComponent from "../components/FilterComponent";
+import http from "../plugin/http";
 
 function AllPostsPage() {
-  const { data, pages, setData } = mainStore((state) => ({
+  const {
+    data,
+    pages,
+    foundPostCount,
+    currentPage,
+    setCurrentPage,
+    logged,
+    setItems,
+    items,
+  } = mainStore((state) => ({
     data: state.data,
-    setData: state.setData,
     pages: state.pages,
+    foundPostCount: state.foundPostCount,
+    currentPage: state.currentPage,
+    setCurrentPage: state.setCurrentPage,
+    logged: state.logged,
+    setItems: state.setItems,
+    items: state.items,
   }));
 
-  const { getPosts } = CustomFunctions();
-  const [currentPage, setCurrentPage] = useState(1);
+  const { getPosts, isFilterActive, handleFilter } = CustomFunctions();
 
   useEffect(() => {
+    http.get("/getAllPosts").then((res) => {
+      if (Array.isArray(res.data)) {
+        const allPosts = res.data.reverse();
+        setItems(allPosts);
+      } else {
+        setItems([]);
+      }
+    });
     getPosts(currentPage);
-  }, [currentPage]);
+  }, [currentPage, setItems]);
 
   return (
-    <div className="">
-      <div className="all-posts d-flex flex-wrap gap-5 mt-5 justify-content-center">
-        {Array.isArray(data) && data.length === 0 ? (
-          <h1>LOADING...</h1>
+    <div className="found-posts">
+      {logged && (
+        <div>
+          <FilterComponent filter={handleFilter} />
+        </div>
+      )}
+      {isFilterActive ? (
+        foundPostCount > 0 ? (
+          <>
+            <div className="text-center mt-4">
+              Was found {foundPostCount} post(s)
+            </div>
+          </>
         ) : (
-          Array.isArray(data) &&
+          <>
+            <div>Sorry, nothing was found.</div>
+          </>
+        )
+      ) : (
+        ""
+      )}
+      <div className="all-posts d-flex flex-wrap gap-5 justify-content-center">
+        {Array.isArray(data) &&
           data.map((x) => (
             <SinglePostComponent
-              getPosts={getPosts}
+              getPosts={() => getPosts(currentPage)}
               data={x}
               key={x.id}
               context="allPosts"
             />
-          ))
-        )}
+          ))}
       </div>
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pages={pages}
-      />
+
+      {!isFilterActive && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pages={pages}
+        />
+      )}
     </div>
   );
 }

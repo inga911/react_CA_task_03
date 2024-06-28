@@ -3,6 +3,7 @@ import { create } from "zustand";
 const mainStore = create((set) => {
   const user = localStorage.getItem("user");
   const secret = localStorage.getItem("secret");
+  const userKey = user ? `favorites_${user}` : "favorites";
 
   return {
     data: null,
@@ -20,8 +21,14 @@ const mainStore = create((set) => {
     currentPage: 1,
     setCurrentPage: (page) => set(() => ({ currentPage: page })),
 
-    favCount: JSON.parse(localStorage.getItem("favorites") || "[]").length,
+    favCount: JSON.parse(localStorage.getItem(userKey) || "[]").length,
     setFavCount: (count) => set(() => ({ favCount: count })),
+
+    items: [],
+    setItems: (newItems) => set(() => ({ items: newItems })),
+
+    foundPostCount: 0,
+    setFoundPostCount: (count) => set(() => ({ foundPostCount: count })),
   };
 });
 

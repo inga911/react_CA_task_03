@@ -11,7 +11,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    padding: 100px 0
+    padding: 60px 0 120px 0
 }
 
 // TOOLAR
@@ -266,4 +266,31 @@
 .active {
     background-color: black;
     color: white;
+}
+
+//FILTER
+.filter-box {
+    background-color: antiquewhite;
+    padding: 35px 0;
+    margin-top: 0;
+
+    .search-inputs {
+        .filter-input-box {
+            .dates-inputs {
+                input {
+                    width: 130px;
+                }
+            }
+        }
+    }
+
+}
+
+.found-posts {
+    width: 100%;
+    min-height: 80vh
+}
+
+.favorites-page {
+    padding-top: 35px;
 }
