@@ -10,7 +10,7 @@ const mainStore = create((set) => {
   };
 
   return {
-    data: null,
+    data: [],
     setData: (newData) => set(() => ({ data: newData })),
 
     error: null,

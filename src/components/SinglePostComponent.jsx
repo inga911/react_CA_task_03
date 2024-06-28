@@ -84,6 +84,9 @@ function SinglePostComponent({ data, context }) {
           src={data.image}
           alt={data.id}
           onError={handleImageError}
+          onClick={() =>
+            handleNavigate(`/getSinglePost/${data.username}/${data.id}`)
+          }
         />
       )}
 
@@ -111,9 +114,17 @@ function SinglePostComponent({ data, context }) {
         >
           <b>Username:</b> {data.username}
         </div>
-        <div className={`${context === "singlePost" && "date"}`}>
-          <b>Created:</b> {formattedDate}
-        </div>
+        {context === "singlePost" ? (
+          <>
+            <div>
+              <div className="date">
+                <b>Created:</b> {formattedDate}
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
         {logged === data.username && (
           <div className="d-flex justify-content-between mt-4 ">
             <button
