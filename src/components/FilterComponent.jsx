@@ -65,8 +65,12 @@ function FilterComponent({ filter }) {
         </div>
       </div>
       <div className="filter-buttons d-flex justify-content-center gap-5">
-        <button onClick={handleFilter}>search</button>
-        <button onClick={handleClearFilter}>Clear filter</button>
+        <button className="filter-btn" onClick={handleFilter}>
+          search
+        </button>
+        <button className="filter-btn" onClick={handleClearFilter}>
+          Clear filter
+        </button>
       </div>
     </div>
   );

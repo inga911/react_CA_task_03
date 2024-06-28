@@ -4,6 +4,10 @@ const mainStore = create((set) => {
   const user = localStorage.getItem("user");
   const secret = localStorage.getItem("secret");
   const userKey = user ? `favorites_${user}` : "favorites";
+  const handleImageError = (event) => {
+    event.target.src =
+      "https://static.vecteezy.com/system/resources/thumbnails/022/014/063/small_2x/missing-picture-page-for-website-design-or-mobile-app-design-no-image-available-icon-vector.jpg";
+  };
 
   return {
     data: null,
@@ -29,6 +33,8 @@ const mainStore = create((set) => {
 
     foundPostCount: 0,
     setFoundPostCount: (count) => set(() => ({ foundPostCount: count })),
+
+    handleImageError,
   };
 });
 

@@ -14,8 +14,9 @@ function SinglePostComponent({ data, context }) {
     removeFavoriteById,
   } = CustomFunctions();
 
-  const { logged } = mainStore((state) => ({
+  const { logged, handleImageError } = mainStore((state) => ({
     logged: state.logged,
+    handleImageError: state.handleImageError,
   }));
 
   useEffect(() => {
@@ -75,9 +76,15 @@ function SinglePostComponent({ data, context }) {
           onClick={() =>
             handleNavigate(`/getSinglePost/${data.username}/${data.id}`)
           }
+          onError={handleImageError}
         />
       ) : (
-        <img className="single-post-img" src={data.image} alt={data.id} />
+        <img
+          className="single-post-img"
+          src={data.image}
+          alt={data.id}
+          onError={handleImageError}
+        />
       )}
 
       <div

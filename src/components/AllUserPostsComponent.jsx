@@ -5,7 +5,7 @@ function AllUserPostsComponent({ data }) {
     return <h1>Loading...</h1>;
   }
   return (
-    <div className="user-posts">
+    <div className="user-posts d-flex flex-column gap-5">
       {data.length === 0 ? (
         <h1>Loading...</h1>
       ) : (
