@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import http from "../plugin/http";
 import mainStore from "../store/mainStore";
 import CustomFunctions from "../plugin/Functions";
@@ -27,10 +27,14 @@ function RegisterPage() {
     if (!res.success) {
       setError(res.message);
     } else {
-      nav("/login");
       setError("");
+      nav("/login");
     }
   }
+
+  useEffect(() => {
+    setError("");
+  }, []);
 
   return (
     <div className="login d-flex flex-column justify-content-between align-items-center">

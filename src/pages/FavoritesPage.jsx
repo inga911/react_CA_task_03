@@ -22,9 +22,13 @@ function FavoritesPage() {
 
   return (
     <div className="favorites-page d-flex flex-wrap gap-5 justify-content-center ">
-      {fav.map((x, i) => (
-        <SinglePostComponent key={i} data={x} context={"allPosts"} />
-      ))}
+      {fav.length === 0 ? (
+        <>You do not have favorite posts yet.</>
+      ) : (
+        fav.map((x, i) => (
+          <SinglePostComponent key={i} data={x} context={"allPosts"} />
+        ))
+      )}
     </div>
   );
 }

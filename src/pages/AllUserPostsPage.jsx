@@ -19,10 +19,10 @@ function AllUserPostsPage() {
 
   return (
     <div>
-      {Array.isArray(data) ? (
-        <AllUserPostsComponent data={data} />
+      {data.length === 0 ? (
+        <>You do not have created posts yet.</>
       ) : (
-        <h1>Loading...</h1>
+        <AllUserPostsComponent data={data} />
       )}
     </div>
   );
